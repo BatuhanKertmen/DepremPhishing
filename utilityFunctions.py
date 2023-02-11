@@ -1,7 +1,7 @@
 from itertools import islice
 import re
 
-from paths import KEYWORDS_TXT, TRUSTED_DOMAINS_TXT, COUNTRY_CODES_TXT
+from paths import KEYWORDS_TXT, COUNTRY_CODES_TXT
 from domain_name_similarity_list import domain_name_similarity_list
 from keywordFinder import calculateTotalOccurrences
 from stringComparison import jaro_distance
@@ -86,22 +86,6 @@ def filterDomains(domain_file_name, verbose):
         file.writelines("\n".join(results))
 
     return results
-
-def findBiggestTrustedDomainSimilarity(url):
-    domain = getDomainName(url)
-
-    with open(TRUSTED_DOMAINS_TXT, "r", encoding="utf-8") as file:
-        secure_domains = [file.strip() for file in file.read().split("\n")]
-
-    max_similarity = 0
-    most_similar = ""
-    for secure_domain in secure_domains:
-        similarity = jaro_distance(domain, secure_domain)
-        if similarity > max_similarity:
-            max_similarity = similarity
-            most_similar = secure_domain
-
-    return max_similarity, most_similar
 
 
 def pipeline(url, download_func, verbose, driver=None):

@@ -29,7 +29,7 @@ args = parser.parse_args()
 if args.who_is and (args.url is not None or args.url_list is not None):
     parser.error("When checking who is database any other url can not be given")
 
-if args.url_list is None and args.url is None and args.who_is is None:
+if args.url_list is None and args.url is None and args.who_is is False:
     parser.error("Either --url (-u) or --url-list (-uL) or --who-is (-w) must be provided.")
 
 if args.url_list is not None and args.url is not None:
